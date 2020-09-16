@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 // chi co fetch moi response duoc status axios thi chua biet cach lay :(((
-const API_ROOT = "http://127.0.0.1:8000/"
+const API_ROOT = "http://localhost:8000/"
 
-export const login = async user => {
+export const login =  user => {
     console.log("user ne" + user);
-	return await fetch((API_ROOT + "login/token"),{
+	return fetch((API_ROOT + "login/token"),{
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -30,20 +30,20 @@ export const login = async user => {
 		})
 }
 
-export const getListChannel = async () => {
-    return await axios.get(API_ROOT + "channels").then(res => {
+export const getListChannel = () => {
+    return  axios.get(API_ROOT + "channels").then(res => {
         return res.data
     })
 }
 
-export const getDetailsChannel = async (id) => {
-    return await axios.get(API_ROOT + "channels/" + id).then(res => {
+export const getDetailsChannel =  (id) => {
+    return axios.get(API_ROOT + "channels/" + id).then(res => {
         return res.data
     })
 }
 
-export const getListShop = async () => {
-    return await axios
+export const getAllShops = () => {
+    return axios
                     .get(API_ROOT + 'shops',{
                         headers:{
                             "token":sessionStorage.getItem('token'),
@@ -55,4 +55,23 @@ export const getListShop = async () => {
                         }
                         return null;
                     });
+}
+
+export const getAllCountries = () => {
+    return axios.post("http://localhost:8000/country/").then(res => {
+        console.log(res)
+    })
+}
+
+export const getAllUsers = () => {
+    return axios.get(API_ROOT + "users",{
+        headers:{
+            "token":sessionStorage.getItem('token'),
+        }}).then(res => {
+            if(res.status === 200){
+                const data = JSON.parse(res.data);
+                return data
+            }
+            return null;
+        })
 }

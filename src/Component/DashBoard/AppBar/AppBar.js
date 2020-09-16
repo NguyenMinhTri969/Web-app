@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Toolbar } from "@material-ui/core";
 import { IconButton} from "@material-ui/core";
 import MenuIcon from '@material-ui/icons/Menu';
-//import { Typography} from "@material-ui/core";
+import { Typography} from "@material-ui/core";
 import { Container} from '@material-ui/core';
 import clsx from "clsx";
 import { Badge} from "@material-ui/core";
@@ -99,6 +99,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Dashboard(props){
   const classes = useStyles();
+  
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -124,15 +125,17 @@ function Dashboard(props){
                 src='https://www.epsilo.io/img/logo/epsilo-logo.png'          
                 variant='rounded'
                 style={{
-                    width: '10%',
-                    height: '10%',
+                    width: '120px',
+                    height: '40px',
                     margin: '10px 10px',
                 }}
                 //className={classes.title}
             >           
             </Avatar>
         </div>
-        
+        <Typography>
+          Welcome {sessionStorage.getItem('email')}{sessionStorage.getItem('user')}
+        </Typography>
         
         <Avatar
             

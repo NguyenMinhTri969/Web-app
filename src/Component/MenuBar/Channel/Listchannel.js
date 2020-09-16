@@ -11,6 +11,8 @@ import Link from '@material-ui/core/Link';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableFooter from '@material-ui/core/TableFooter';
 
+import Title from "../../Title/Title";
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: '#3f51b5',
@@ -39,9 +41,11 @@ const useStyles = makeStyles({
 
 export default function CustomizedTables(props) {
   const classes = useStyles();
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [page, setPage] = React.useState(0);
   const value = props.value;
+
+
 
 
   const handleChangePage = (event, newPage) => {
@@ -53,14 +57,17 @@ export default function CustomizedTables(props) {
     setPage(0);
   };
   return (
-
+    <React.Fragment>
+      <Title>
+        Channel
+      </Title>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
               <StyledTableCell align="right">Shops</StyledTableCell>
-              <StyledTableCell align="right">Details</StyledTableCell>
+     
             </TableRow>
           </TableHead>
           <TableBody>
@@ -70,16 +77,14 @@ export default function CustomizedTables(props) {
               ).map((row) => (
               <StyledTableRow key={row.name}>
                 <StyledTableCell component="th" scope="row">
-                  {row.name}
+                <Link href={"http://localhost:3000/channel/" + row.name + "/" + row.id}>
+                      {row.name}
+                  </Link>
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   {row.shops}
                 </StyledTableCell>
-                <StyledTableCell align="right">
-                  <Link href={"http://localhost:3000/channel/" + row.name + "/" + row.id}>
-                      Details
-                  </Link>
-                </StyledTableCell>
+               
               </StyledTableRow>
             ))}
           </TableBody>
@@ -99,6 +104,6 @@ export default function CustomizedTables(props) {
           </TableRow>
         </TableFooter>
       </TableContainer>
-    
+    </React.Fragment>
   );
 }

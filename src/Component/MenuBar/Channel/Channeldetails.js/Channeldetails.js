@@ -9,6 +9,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
+import Title from "../../../Title/Title";
 import Executor from './Executor';
 import Shops from './Shops';
 
@@ -64,6 +65,9 @@ export default function ScrollableTabsButtonForce(props) {
 
   return (
     <div className={classes.root}>
+      <Title>
+        {props.title}
+      </Title>
       <AppBar position="static" color="default">
         <Tabs
           value={value}

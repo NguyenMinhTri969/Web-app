@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { checkRole } from '../../CheckRole/CheckRole';
-import { getListShop } from "../../RestAPI/RestAPI";
+import { getAllShops } from "../../RestAPI/RestAPI";
 
 import Dashboard from '../../Component/DashBoard/AppBar/AppBar';
 import Listshop from '../../Component/MenuBar/Shop/Listshop';
@@ -14,8 +14,8 @@ class Shop extends Component {
         }
     }
 
-    async componentDidMount() {
-        await checkRole().then(check_role => {
+    componentDidMount() {
+        checkRole().then(check_role => {
             if (check_role === null) {
                 this.props.history.push('/login')
             }this.setState({
@@ -23,7 +23,7 @@ class Shop extends Component {
             })
         })
         
-        await getListShop().then(res => {
+        getAllShops().then(res => {
             console.log(res)
             this.setState({
                 data: res

@@ -50,7 +50,10 @@ class Channel_Details extends Component {
         }
         return (
             <Dashboard 
-                table={<Channeldetails executor={this.state.executor} shops={this.state.shops}/>}
+                table={<Channeldetails 
+                            executor={this.state.executor} 
+                            shops={this.state.shops}
+                            title={name}/>}
                 breadcrumb ={<Breadcrumbdetails {...props}/>}
             />
         )

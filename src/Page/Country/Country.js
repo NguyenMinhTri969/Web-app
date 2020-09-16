@@ -1,12 +1,12 @@
 import React from 'react';
 import { checkRole } from '../../CheckRole/CheckRole';
-import { getListShop } from "../../RestAPI/RestAPI";
+import { getAllCountries } from "../../RestAPI/RestAPI";
 
-import Dashboard from '../../Component/DashBoard/AppBar/AppBar';
+/* import Dashboard from '../../Component/DashBoard/AppBar/AppBar';
 
 import Breadcrumb from '../../Component/Breadcrumb/Breadcrumb';
 
-import ListCountry from "../../Component/MenuBar/Country/ListCountry";
+import ListCountry from "../../Component/MenuBar/Country/ListCountry"; */
 class Country extends React.Component {
     constructor(props) {
         super(props)
@@ -24,24 +24,17 @@ class Country extends React.Component {
             })
         })
         
-        await getListShop().then(res => {
-            console.log(res)
-            this.setState({
-                data: res
-            })
+        await getAllCountries().then(res => {
+            console.log('res ne' + res)
         })
         
-          
-        
     }
-
     render() {
         return (
-            <Dashboard
-                table={<ListCountry value={this.state.data ? this.state.data : []}/>}
-                breadcrumb={<Breadcrumb title1="Shop" />} 
-            />
+            <div>countries here</div>
         )
     }
+
+    
 }
 export default Country;
