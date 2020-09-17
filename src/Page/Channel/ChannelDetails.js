@@ -46,7 +46,7 @@ class Channel_Details extends Component {
         const props = {
             href: "/channel",
             title1: "Channel",
-            title2: name
+
         }
         return (
             <Dashboard 
