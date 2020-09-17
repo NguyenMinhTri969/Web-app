@@ -23,8 +23,7 @@ class Channel extends React.Component {
             })
         })
         await getListChannel().then(res => {
-            console.log(res)
-            console.log("res ne" + JSON.parse(res))
+            
             this.setState({
                 data: JSON.parse(res)
             })

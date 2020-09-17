@@ -25,11 +25,11 @@ class Channel_Details extends Component {
             });
         });
 
-        const { location } = this.props;
-        const slash = location.pathname.lastIndexOf("/")
-        const id = location.pathname.slice(slash +1)     
+        const { match } = this.props;
+    
+        const id = match.params.id
         
-        console.log(id)
+
         await getDetailsChannel(id).then(res => {
             this.setState({
                 executor: JSON.parse(res[0]),
@@ -40,9 +40,13 @@ class Channel_Details extends Component {
     }
 
     render() {
-        const { location } = this.props;
-        const slash = location.pathname.lastIndexOf("/")
-        const name = location.pathname.slice(9, slash)
+        
+        const { match } = this.props;
+
+        const name = match.params.details
+        
+        console.log(match.params)
+        
         const props = {
             href: "/channel",
             title1: "Channel",

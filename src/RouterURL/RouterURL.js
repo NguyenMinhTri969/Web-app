@@ -38,7 +38,7 @@ export default function() {
                     <Channel />
                 </Route>
 
-                <Route path ="/channel/:details">
+                <Route path ="/channel/:details/:id">
                     <ChannelDetails/>
                 </Route>
                 <Route path ="/shops" exact>
