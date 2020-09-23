@@ -2,11 +2,11 @@ import React from 'react';
 import { checkRole } from '../../CheckRole/CheckRole';
 import { getAllCountries } from "../../RestAPI/RestAPI";
 
-/* import Dashboard from '../../Component/DashBoard/AppBar/AppBar';
+import Dashboard from '../../Component/DashBoard/AppBar/AppBar';
 
 import Breadcrumb from '../../Component/Breadcrumb/Breadcrumb';
 
-import ListCountry from "../../Component/MenuBar/Country/ListCountry"; */
+import ListCountry from "../../Component/MenuBar/Country/ListCountry";
 class Country extends React.Component {
     constructor(props) {
         super(props)
@@ -25,13 +25,19 @@ class Country extends React.Component {
         })
         
         await getAllCountries().then(res => {
-            console.log('res ne' + res)
+            this.setState({
+                data: res
+            })
         })
         
     }
     render() {
         return (
-            <div>countries here</div>
+            <div>
+                <Dashboard table={<ListCountry value={this.state.data ? this.state.data : []} />}
+                    breadcrumb = {<Breadcrumb title1="Country" />}
+                />
+            </div>
         )
     }
 

@@ -24,7 +24,6 @@ class Shop extends Component {
         })
         
         getAllShops().then(res => {
-            console.log(res)
             this.setState({
                 data: res
             })

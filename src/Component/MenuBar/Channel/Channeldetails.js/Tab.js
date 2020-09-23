@@ -4,10 +4,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-//import StoreIcon from '@material-ui/icons/Store';
-//import PersonPinIcon from '@material-ui/icons/PersonPin';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+
 
 import Title from "../../../Title/Title";
 import Executor from './Executor';
@@ -78,7 +77,7 @@ export default function ScrollableTabsButtonForce(props) {
           textColor="primary"
           aria-label="full width tabs example"
         >
-          <Tab label="List Shop"  {...a11yProps(0)} />
+          <Tab label="Shops"  {...a11yProps(0)} />
           <Tab label="Executor" {...a11yProps(1)} /> 
         </Tabs>
       </AppBar>
@@ -86,7 +85,7 @@ export default function ScrollableTabsButtonForce(props) {
         <Shops value={props.shops ? props.shops : []} />    
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Executor value={props.executor} />
+        <Executor value={props.executor ? props.executor : []} />
       </TabPanel>
 
       

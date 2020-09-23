@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router";
 
 import { checkRole } from '../../CheckRole/CheckRole'; 
-import { getDetailsChannel } from "../../RestAPI/RestAPI";
+import { getListManagerOfChannel } from "../../RestAPI/RestAPI";
+import { getShopsOfChannel } from "../../RestAPI/RestAPI";
 
 import Dashboard from "../../Component/DashBoard/AppBar/AppBar";
-import Channeldetails from "../../Component/MenuBar/Channel/Channeldetails.js/Channeldetails";
+import Channeldetails from "../../Component/MenuBar/Channel/Channeldetails.js/Tab";
 import Breadcrumbdetails from "../../Component/Breadcrumb/Breadcrumb_details";
 
 class Channel_Details extends Component {
@@ -30,10 +31,18 @@ class Channel_Details extends Component {
         const id = match.params.id
         
 
-        await getDetailsChannel(id).then(res => {
+        getListManagerOfChannel(id).then(res => {
+            
             this.setState({
-                executor: JSON.parse(res[0]),
-                shops: JSON.parse(res[1])
+                executor: res
+                
+            })
+        })
+        
+        getShopsOfChannel(id).then(res => {
+        
+            this.setState({
+                shops: res
             })
         })
        
@@ -44,18 +53,16 @@ class Channel_Details extends Component {
         const { match } = this.props;
 
         const name = match.params.details
-        
-        console.log(match.params)
-        
+
         const props = {
             href: "/channel",
             title1: "Channel",
-
+            title2: name
         }
         return (
             <Dashboard 
                 table={<Channeldetails 
-                            executor={this.state.executor} 
+                            executor={this.state.executor}
                             shops={this.state.shops}
                             title={name}/>}
                 breadcrumb ={<Breadcrumbdetails {...props}/>}

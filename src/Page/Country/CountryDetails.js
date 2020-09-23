@@ -2,19 +2,17 @@ import React, { Component } from 'react';
 import { withRouter } from "react-router";
 
 import { checkRole } from '../../CheckRole/CheckRole'; 
-
-import { getUserDetails } from "../../RestAPI/RestAPI";
-import { getExecutorsOfShop } from "../../RestAPI/RestAPI";
+import { getCountryDetails } from "../../RestAPI/RestAPI";
 
 import Dashboard from "../../Component/DashBoard/AppBar/AppBar";
-import Tab from "../../Component/MenuBar/User/UserDetail/Tab";
+import Countrydetails from "../../Component/MenuBar/Country/Countrydetails/CountryDetails";
 import Breadcrumbdetails from "../../Component/Breadcrumb/Breadcrumb_details";
 
 class Channel_Details extends Component {
     constructor(props) {
         super(props)
         this.state = {
-
+            data: []
         }   
     }
     async componentDidMount() {
@@ -30,20 +28,15 @@ class Channel_Details extends Component {
         const { match } = this.props;
     
         const id = match.params.id
-        
-        getExecutorsOfShop(id).then(res => {
+            
+
+        getCountryDetails(id).then(res => {
+            console.log(res)
             this.setState({
-                listshop: res
+                data: res
             })
         })
-
-        
-        getUserDetails(id).then(res => {
-        
-            this.setState({
-                profile: res
-            })
-        })   
+       
     }
 
     render() {
@@ -52,22 +45,15 @@ class Channel_Details extends Component {
 
         const name = match.params.details
 
-        const breadcrumb = {
-            href: "/user",
-            title1: "User",
+        const props = {
+            href: "/countrys",
+            title1: "Country",
             title2: name
         }
-
-        const tab = {
-            title: name,
-            profile: this.state.profile,
-            listshop: this.state.listshop
-        }
-        
         return (
             <Dashboard 
-                table={<Tab {...tab} />}
-                breadcrumb ={<Breadcrumbdetails {...breadcrumb}/>}
+                breadcrumb ={<Breadcrumbdetails {...props}/>}
+                table = {<Countrydetails value={this.state.data} title={name}/>} // data is object
             />
         )
     }

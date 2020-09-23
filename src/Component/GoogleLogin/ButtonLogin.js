@@ -26,7 +26,7 @@ export default function Buttonlogin() {
     const responseGoogle = (response) => {
         console.log(response)
         const token = response.tokenId
-        const url = "http://127.0.0.1:8000/access-token?google_token_id="+token
+        const url = "http://localhost:8000/login/gmail/access-token?google_token_id="+token
         console.log(url)
         axios.get(url).then(res => {
             if(res.status === 200) {

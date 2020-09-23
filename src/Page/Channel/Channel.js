@@ -23,16 +23,16 @@ class Channel extends React.Component {
             })
         })
         await getListChannel().then(res => {
-            
+            console.log(res)
             this.setState({
-                data: JSON.parse(res)
+                data: res
             })
         })
     }
     render() {
         return (
             <Dashboard 
-                breadcrumb = {<Breadcrumb href1="/channel" title1="Channel"/>}
+                breadcrumb = {<Breadcrumb title1="Channel"/>}
                 table ={<Listchannel value={this.state.data}/>}
             />
         )

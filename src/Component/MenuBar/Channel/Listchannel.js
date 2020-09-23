@@ -12,6 +12,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableFooter from '@material-ui/core/TableFooter';
 
 import Title from "../../Title/Title";
+import Loading from "../../Loading/Loading";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -37,16 +38,16 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
+  row2: {
+    maxWidth: 20,
+  }
 });
 
 export default function CustomizedTables(props) {
   const classes = useStyles();
-  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(0);
   const value = props.value;
-
-
-
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -61,28 +62,36 @@ export default function CustomizedTables(props) {
       <Title>
         Channel
       </Title>
+      
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
+              <StyledTableCell align="right">Executors</StyledTableCell>
               <StyledTableCell align="right">Shops</StyledTableCell>
+
      
             </TableRow>
           </TableHead>
+           
           <TableBody>
+          <Loading value={value} />
             {(rowsPerPage > 0
                 ? value.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 : value
               ).map((row) => (
-              <StyledTableRow key={row.name}>
-                <StyledTableCell component="th" scope="row">
+              <StyledTableRow  key={row.name}>    
+                <StyledTableCell className={classes.row2} scope="row1">
                 <Link href={"http://localhost:3000/channel/" + row.name + "/" + row.id}>
                       {row.name}
                   </Link>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {row.shops}
+                  {row.number_of_manager}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.number_of_shop}
                 </StyledTableCell>
                
               </StyledTableRow>

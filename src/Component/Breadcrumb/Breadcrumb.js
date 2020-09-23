@@ -8,13 +8,13 @@ export default function(props) {
         <Breadcrumbs aria-label="breadcrumb">
             <Link 
                 color="inherit" href="/Sim" 
-                variant="body2"
+                variant='caption'
             >
                 Home
             </Link>
             <Typography
                 color = "textPrimary"
-                variant='subtitle2' 
+                variant='caption'
             >
                 {props.title1}
             </Typography>

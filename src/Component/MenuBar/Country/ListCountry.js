@@ -11,7 +11,7 @@ import Link from '@material-ui/core/Link';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableFooter from '@material-ui/core/TableFooter';
 
-
+import Title from "../../Title/Title";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -37,6 +37,9 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
+  row2: {
+    maxWidth: 20,
+  }
 });
 
 export default function CustomizedTables(props) {
@@ -44,7 +47,6 @@ export default function CustomizedTables(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(0);
   const value = props.value;
-
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -55,15 +57,18 @@ export default function CustomizedTables(props) {
     setPage(0);
   };
   return (
-
+    <React.Fragment>
+      <Title>
+        Country
+      </Title>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell align="right">Country</StyledTableCell>
-              <StyledTableCell align="right">Sim</StyledTableCell>
-              <StyledTableCell align="right">Channel</StyledTableCell>
+              <StyledTableCell align="right">Shops</StyledTableCell>
+              <StyledTableCell align="right">Postal Code</StyledTableCell>
+     
             </TableRow>
           </TableHead>
           <TableBody>
@@ -71,26 +76,20 @@ export default function CustomizedTables(props) {
                 ? value.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 : value
               ).map((row) => (
-             
-              <StyledTableRow key={row.name}>
-                <StyledTableCell component="th" scope="row">
-                    <Link href={"http://localhost:3000/shops/"+ row.id}>
-                    {row.name}
+              <StyledTableRow  key={row.name}>
+                <StyledTableCell className={classes.row2} scope="row1">
+                <Link href={"http://localhost:3000/country/" + row.name + "/" + row.postl_code}>
+                      {row.name}
                   </Link>
-                  
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {row.country}
+                {row.number_of_shop}
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {row.sim}
+                  {row.postl_code}
                 </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.channel_name}
-                </StyledTableCell>
-                
+               
               </StyledTableRow>
-          
             ))}
           </TableBody>
         </Table>
@@ -109,6 +108,6 @@ export default function CustomizedTables(props) {
           </TableRow>
         </TableFooter>
       </TableContainer>
-    
+    </React.Fragment>
   );
 }

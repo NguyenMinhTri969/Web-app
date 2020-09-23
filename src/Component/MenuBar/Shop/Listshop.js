@@ -11,6 +11,10 @@ import Link from '@material-ui/core/Link';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableFooter from '@material-ui/core/TableFooter';
 
+import Loading  from "../../Loading/Loading";
+
+import Title from "../../Title/Title";
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: '#3f51b5',
@@ -35,6 +39,9 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
+  row2: {
+    maxWidth: 20,
+  }
 });
 
 export default function CustomizedTables(props) {
@@ -52,38 +59,72 @@ export default function CustomizedTables(props) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
-  return (
 
+  const to_slug = (str) => {
+    // Chuyển hết sang chữ thường
+    str = str.toLowerCase();     
+  
+    // xóa dấu
+    str = str.replace(/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/g, 'a');
+    str = str.replace(/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/g, 'e');
+    str = str.replace(/(ì|í|ị|ỉ|ĩ)/g, 'i');
+    str = str.replace(/(ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ)/g, 'o');
+    str = str.replace(/(ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ)/g, 'u');
+    str = str.replace(/(ỳ|ý|ỵ|ỷ|ỹ)/g, 'y');
+    str = str.replace(/(đ)/g, 'd');
+  
+    // Xóa ký tự đặc biệt
+    str = str.replace(/([^0-9a-z-\s])/g, '');
+  
+    // Xóa khoảng trắng thay bằng ký tự -
+    str = str.replace(/(\s+)/g, '-');
+  
+    // xóa phần dự - ở đầu
+    str = str.replace(/^-+/g, '');
+  
+    // xóa phần dư - ở cuối
+    str = str.replace(/-+$/g, '');
+  
+    // return
+    return str;
+  }
+
+  return (
+    <React.Fragment>
+      <Title>
+        Shop
+      </Title>
+      
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
               <StyledTableCell align="right">Country</StyledTableCell>
-              <StyledTableCell align="right">Sim</StyledTableCell>
+          
               <StyledTableCell align="right">Channel</StyledTableCell>
             </TableRow>
           </TableHead>
+          <Loading value={value} />
           <TableBody>
+            
             {(rowsPerPage > 0
                 ? value.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 : value
               ).map((row) => (
               <StyledTableRow key={row.name}>
-                <StyledTableCell component="th" scope="row">
-                    <Link href={"http://localhost:3000/shops/"+ row.id}>
+                <StyledTableCell className={classes.row2} component="th" scope="row">
+                    <Link href={"http://localhost:3000/shops/" + row.id + "/" +  to_slug(`${row.name}`)}>
                     {row.name}
                   </Link>
                   
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                  {row.country}
+                  {row.postal_code}
                 </StyledTableCell>
+                
                 <StyledTableCell align="right">
-                  {row.sim}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.channel_name}
+                  {row.channel_id}
                 </StyledTableCell>
                 
               </StyledTableRow>
@@ -105,6 +146,6 @@ export default function CustomizedTables(props) {
           </TableRow>
         </TableFooter>
       </TableContainer>
-    
+    </ React.Fragment>
   );
 }

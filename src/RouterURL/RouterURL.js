@@ -5,7 +5,7 @@ import {
     Redirect
   } from "react-router-dom";
 
-import LazyLoad from 'react-lazyload'
+
 
 
 import Login from '../Page/Login/Login';
@@ -14,15 +14,13 @@ import Channel from "../Page/Channel/Channel";
 import ChannelDetails from "../Page/Channel/ChannelDetails";
 import Shop from "../Page/Shop/Shop";
 import Shopdetails from "../Page/Shop/ShopDetails";
-import Country from "../Page/Country/Country";
+
 import User from "../Page/User/User";
 import UserDetails from "../Page/User/UserDetails";
+import Country from "../Page/Country/Country";
+import CountryDetails from "../Page/Country/CountryDetails";
 
-const Loading = () => (
-    <div className="post loading">
-      <h5>Loading...</h5>
-    </div>
-  )
+
 export default function() {
     return (
         <div>
@@ -37,27 +35,28 @@ export default function() {
                 <Route path ="/channel" exact>
                     <Channel />
                 </Route>
-
                 <Route path ="/channel/:details/:id">
                     <ChannelDetails/>
                 </Route>
-                <Route path ="/shops" exact>
-                    <LazyLoad placeholder={<Loading />}>
-                        <Shop />
-                    </LazyLoad>
-                </Route>
 
-                <Route path ="/shops/:id">
+                <Route path ="/shops" exact>
+                        <Shop />   
+                </Route>
+                <Route path ="/shops/:id/:name">
                     <Shopdetails />
                 </Route>
+
                 <Route path ="/countrys" exact>
                         <Country />
+                </Route>
+                <Route path ="/country/:details/:id">
+                    <CountryDetails />
                 </Route>
 
                 <Route path ="/user" exact>
                         <User />
                 </Route>
-                <Route path ="/user/:id">
+                <Route path ="/user/:details/:id">
                     <UserDetails />
                 </Route>
 

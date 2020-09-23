@@ -6,15 +6,15 @@ import { Typography } from "@material-ui/core";
 export default function(props) {
     return (
         <Breadcrumbs aria-label="breadcrumb">
-            <Link color="inherit" variant="body2" href="/Sim">
+            <Link color="inherit" variant='caption'href="/Sim">
                 Home
             </Link>
-            <Link color="inherit" variant="body2" href={props.href}>
+            <Link color="inherit" variant='caption' href={props.href}>
                 {props.title1}
             </Link>
             <Typography
                 color = "textPrimary"
-                variant='subtitle2' 
+                variant='caption'
             >
                 {props.title2}
             </Typography>

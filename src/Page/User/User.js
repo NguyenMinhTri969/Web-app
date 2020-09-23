@@ -25,7 +25,7 @@ class LUser extends React.Component {
         })
 
         getAllUsers().then(res => {
-            console.log("usre ne" + res)
+            console.log("user:" + res)
             this.setState({
                 data: res
             })
@@ -34,7 +34,9 @@ class LUser extends React.Component {
     
     render() {
         return (
-            <DashBoard table={<ListUser value={this.state.data ? this.state.data : []} />} breadcrumb={<Breadcrumb title1="User"/>} />
+            <DashBoard 
+                table={<ListUser value={this.state.data ? this.state.data : []} />} 
+                breadcrumb={<Breadcrumb title1="User"/>} />
         )
     }   
 }

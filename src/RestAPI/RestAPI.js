@@ -5,7 +5,7 @@ const API_ROOT = "http://localhost:8000/"
 
 export const login =  user => {
     console.log("user ne" + user);
-	return fetch((API_ROOT + "login/token"),{
+	return fetch((API_ROOT + "login/login/token"),{
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -31,35 +31,47 @@ export const login =  user => {
 }
 
 export const getListChannel = () => {
-    return  axios.get(API_ROOT + "channels").then(res => {
+    return  axios.get(API_ROOT + "channel/", {
+        headers: {
+            "token": sessionStorage.getItem('token'),
+        }
+    }).then(res => {
         return res.data
     })
 }
 
-export const getDetailsChannel =  (id) => {
-    return axios.get(API_ROOT + "channels/" + id).then(res => {
+export const getListManagerOfChannel =  (id) => {
+    return axios.get(API_ROOT + "channel/" + id + "/all-manager", {
+        headers:{
+            "token":sessionStorage.getItem('token'),
+        }
+    }).then(res => {
         return res.data
     })
 }
 
-export const getAllShops = () => {
-    return axios
-                    .get(API_ROOT + 'shops',{
-                        headers:{
-                            "token":sessionStorage.getItem('token'),
-                        }
-                    }).then(res =>{
-                        if(res.status === 200){
-                            const data = JSON.parse(res.data);
-                            return data;
-                        }
-                        return null;
-                    });
+export const getShopsOfChannel = (id) => {
+    return axios.get(API_ROOT + "channel/" + id + "/shops", {
+        headers:{
+            "token":sessionStorage.getItem('token'),
+        }
+    }).then(res => {
+        return res.data
+    })
 }
 
 export const getAllCountries = () => {
-    return axios.post("http://localhost:8000/country/").then(res => {
-        console.log(res)
+    return axios.post(API_ROOT + "country/").then(res => {
+        return res.data
+    })
+}
+
+export const getCountryDetails = (id) => {
+    return axios.get(API_ROOT + "country/{country_id}?postal_code=" + id).then(res => {
+        if(res.status === 200) {
+            return res.data
+        }
+        return null;
     })
 }
 
@@ -69,9 +81,75 @@ export const getAllUsers = () => {
             "token":sessionStorage.getItem('token'),
         }}).then(res => {
             if(res.status === 200){
-                const data = JSON.parse(res.data);
-                return data
+                
+                return res.data
             }
             return null;
         })
+}
+
+export const getUserDetails = (id) => {
+    return axios.get(API_ROOT + "users/" + id, {
+        headers: {
+            "token":sessionStorage.getItem('token'),
+        }
+    }).then(res => {
+        if (res.status === 200) {
+            return res.data
+        }
+        return null;
+    })
+}
+
+export const getAllShops = () => {
+    return axios
+                    .get(API_ROOT + 'shop/?limit=100',{
+                        headers:{
+                            "token":sessionStorage.getItem('token'),
+                        }
+                    }).then(res =>{
+                        if(res.status === 200){
+                            return res.data
+                        }
+                        return null;
+                    });
+}
+
+export const getShopDetails = (id) => {
+    return axios.get(API_ROOT + "shop/" + id, {
+        headers: {
+            "token": sessionStorage.getItem('token')
+        }
+    }).then(res => {
+        if(res.status === 200) {
+            return res.data
+        }
+        return null;
+    })
+}
+
+export const getNumberOfShopExecutors = (id) => {
+    return axios.get(API_ROOT + "shop/" + id + "/count-executors", {
+        headers: {
+            "token": sessionStorage.getItem('token')
+        }
+    }).then(res => {
+        if(res.status === 200) {
+            return res.data
+        }
+        return null;
+    })
+}
+
+export const getExecutorsOfShop = (id) => {
+    return axios.get(API_ROOT + "users/" + id + "/all-shop", {
+        headers: {
+            "token": sessionStorage.getItem('token')
+        }
+    }).then(res => {
+        if(res.status === 200) {
+            return res.data
+        }
+        return [];
+    })
 }
