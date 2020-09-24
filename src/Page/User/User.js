@@ -25,7 +25,7 @@ class LUser extends React.Component {
         })
 
         getAllUsers().then(res => {
-            console.log("user:" + res)
+          
             this.setState({
                 data: res
             })

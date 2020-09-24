@@ -4,7 +4,7 @@ import { withRouter } from "react-router";
 import { checkRole } from '../../CheckRole/CheckRole'; 
 
 import { getUserDetails } from "../../RestAPI/RestAPI";
-import { getExecutorsOfShop } from "../../RestAPI/RestAPI";
+import {  getShopsOfExecutor } from "../../RestAPI/RestAPI";
 
 import Dashboard from "../../Component/DashBoard/AppBar/AppBar";
 import Tab from "../../Component/MenuBar/User/UserDetail/Tab";
@@ -31,7 +31,8 @@ class Channel_Details extends Component {
     
         const id = match.params.id
         
-        getExecutorsOfShop(id).then(res => {
+        getShopsOfExecutor(id).then(res => {
+        
             this.setState({
                 listshop: res
             })

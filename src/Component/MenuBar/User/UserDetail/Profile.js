@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export default function RecipeReviewCard(props) {
   const classes = useStyles();
   const value = props.value;
-  console.log(value)
+ 
 
   return (
     <Card className={classes.root}>

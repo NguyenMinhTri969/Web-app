@@ -30,6 +30,7 @@ export const login =  user => {
 		})
 }
 
+//// ====> Channel
 export const getListChannel = () => {
     return  axios.get(API_ROOT + "channel/", {
         headers: {
@@ -59,7 +60,8 @@ export const getShopsOfChannel = (id) => {
         return res.data
     })
 }
-
+/// <=== Channel
+//// Country
 export const getAllCountries = () => {
     return axios.post(API_ROOT + "country/").then(res => {
         return res.data
@@ -74,7 +76,8 @@ export const getCountryDetails = (id) => {
         return null;
     })
 }
-
+/// Coutnry
+/// User
 export const getAllUsers = () => {
     return axios.get(API_ROOT + "users",{
         headers:{
@@ -101,6 +104,35 @@ export const getUserDetails = (id) => {
     })
 }
 
+export const getNumberOfShopExecutors = (id) => {
+    return axios.get(API_ROOT + "shop/" + id + "/count-executors", {
+        headers: {
+            "token": sessionStorage.getItem('token')
+        }
+    }).then(res => {
+        if(res.status === 200) {
+            return res.data
+        }
+        return null;
+    })
+}
+
+export const getShopsOfExecutor = (id) => {
+    return axios.get(API_ROOT + "users/" + id + "/all-shop", {
+        headers: {
+            "token": sessionStorage.getItem('token')
+        }
+    }).then(res => {
+        if(res.status === 200) {
+            return res.data
+        }
+        return null;
+    })
+}
+
+
+//// <=== User
+//// ===> Shop
 export const getAllShops = () => {
     return axios
                     .get(API_ROOT + 'shop/?limit=100',{
@@ -128,8 +160,8 @@ export const getShopDetails = (id) => {
     })
 }
 
-export const getNumberOfShopExecutors = (id) => {
-    return axios.get(API_ROOT + "shop/" + id + "/count-executors", {
+export const getExecutorsOfShop = (id) => {
+    return axios.get(API_ROOT + "shop/" + id + "/all-executors", {
         headers: {
             "token": sessionStorage.getItem('token')
         }
@@ -137,19 +169,10 @@ export const getNumberOfShopExecutors = (id) => {
         if(res.status === 200) {
             return res.data
         }
-        return null;
+        else {
+            return null;
+        }
     })
 }
 
-export const getExecutorsOfShop = (id) => {
-    return axios.get(API_ROOT + "users/" + id + "/all-shop", {
-        headers: {
-            "token": sessionStorage.getItem('token')
-        }
-    }).then(res => {
-        if(res.status === 200) {
-            return res.data
-        }
-        return [];
-    })
-}
+/// <====

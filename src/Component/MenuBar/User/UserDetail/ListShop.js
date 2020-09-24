@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 export default function CustomizedTables(props) {
   const classes = useStyles();
   const value = props.value;
-  console.log(value)
+
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">

@@ -84,10 +84,10 @@ export default function ScrollableTabsButtonForce(props) {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <Profile value={props.profile ? props.profile : ' '}/>
+        <Profile value={props.profile ? props.profile : {}}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ListShop value={props.listshop ? props.listshop : ' '}/>
+        <ListShop value={props.listshop ? props.listshop : []}/>
       </TabPanel>
 
       
