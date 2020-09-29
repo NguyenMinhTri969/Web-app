@@ -1,5 +1,5 @@
 import React from 'react';
-import { checkRole } from '../../CheckRole/CheckRole';
+import { checkRole } from '../../Auth/CheckRole';
 import { getListChannel } from '../../RestAPI/RestAPI';
 import Dashboard from '../../Component/DashBoard/AppBar/AppBar';
 import Breadcrumb from '../../Component/Breadcrumb/Breadcrumb';

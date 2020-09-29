@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router";
 
-import { checkRole } from '../../CheckRole/CheckRole'; 
+import { checkRole } from '../../Auth/CheckRole'; 
 import { getListManagerOfChannel } from "../../RestAPI/RestAPI";
 import { getShopsOfChannel } from "../../RestAPI/RestAPI";
 
@@ -47,6 +47,9 @@ class Channel_Details extends Component {
         })
        
     }
+    addManager() {
+        console.log("clicked")
+    }
 
     render() {
         
@@ -64,7 +67,9 @@ class Channel_Details extends Component {
                 table={<Channeldetails 
                             executor={this.state.executor}
                             shops={this.state.shops}
-                            title={name}/>}
+                            title={name}
+                            addManager={() => this.addManager()}
+                        />}
                 breadcrumb ={<Breadcrumbdetails {...props}/>}
             />
         )

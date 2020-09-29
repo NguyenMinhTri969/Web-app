@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router";
 
-import { checkRole } from '../../CheckRole/CheckRole'; 
+import { checkRole } from '../../Auth/CheckRole'; 
 import { getShopDetails } from "../../RestAPI/RestAPI";
 import { getExecutorsOfShop } from "../../RestAPI/RestAPI";
 import { getNumberOfShopExecutors } from "../../RestAPI/RestAPI";

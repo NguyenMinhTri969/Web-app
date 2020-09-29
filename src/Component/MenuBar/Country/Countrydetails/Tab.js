@@ -9,7 +9,7 @@ import Box from '@material-ui/core/Box';
 
 
 import Title from "../../../Title/Title";
-import Executor from './Executor';
+import Information from './Information';
 import Shops from './Shops';
 
 function TabPanel(props) {
@@ -77,18 +77,15 @@ export default function ScrollableTabsButtonForce(props) {
           textColor="primary"
           aria-label="full width tabs example"
         >
-          <Tab label="Shops"  {...a11yProps(0)} />
-          <Tab label="Managers" {...a11yProps(1)} /> 
+          <Tab label="Information"  {...a11yProps(0)} />
+          <Tab label="Shops" {...a11yProps(1)} /> 
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <Shops value={props.shops ? props.shops : []} />    
+        <Information value={props.information ? props.information : []} />   
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Executor 
-            value={props.executor ? props.executor : []}
-            addManager={props.addManager} 
-        />
+        <Shops value={props.shops ? props.shops : []} />
       </TabPanel>
 
       

@@ -37,8 +37,12 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
-  row2: {
+  column1: {
     maxWidth: 20,
+  },
+  pagination: {
+    display: "flex",
+    justifyContent: "flex-end"
   }
 });
 
@@ -77,13 +81,13 @@ export default function CustomizedTables(props) {
                 : value
               ).map((row) => (
               <StyledTableRow  key={row.name}>
-                <StyledTableCell className={classes.row2} scope="row1">
+                <StyledTableCell className={classes.column1} scope="row1">
                 <Link href={"http://localhost:3000/country/" + row.name + "/" + row.postl_code}>
                       {row.name}
                   </Link>
                 </StyledTableCell>
                 <StyledTableCell align="right">
-                {row.number_of_shop}
+                {row.count_shop}
                 </StyledTableCell>
                 <StyledTableCell align="right">
                   {row.postl_code}
@@ -93,8 +97,7 @@ export default function CustomizedTables(props) {
             ))}
           </TableBody>
         </Table>
-        <TableFooter>
-          <TableRow>
+        <TableFooter className={classes.pagination}>
         
             <TablePagination
               rowsPerPageOptions={[5, 10, 25]}
@@ -105,7 +108,7 @@ export default function CustomizedTables(props) {
               onChangePage={handleChangePage}
               onChangeRowsPerPage={handleChangeRowsPerPage}
             />
-          </TableRow>
+            
         </TableFooter>
       </TableContainer>
     </React.Fragment>

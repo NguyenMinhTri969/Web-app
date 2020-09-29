@@ -1,6 +1,6 @@
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
+//import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -11,6 +11,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core';
 import Container from '@material-ui/core/Container';
+
 
 import ButtonLogin from '../GoogleLogin/ButtonLogin';
 
@@ -36,7 +37,9 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: theme.palette.primary.main,
+    width: "30%",
+    height: '30%'
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -44,13 +47,18 @@ const useStyles = makeStyles((theme) => ({
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
+    backgroundColor: '#333f50',
+    color: "white",
   },
 }));
 
 export default function SignIn(props) {
   const classes = useStyles();
-    const { onChange } = props;
-    const { onSubmit } = props;
+
+  const { onChange } = props;
+  const { onSubmit } = props;
+ 
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -58,14 +66,10 @@ export default function SignIn(props) {
          <Avatar
             src='https://www.epsilo.io/img/logo/epsilo-logo.png'          
             variant='rounded'
-            style={{
-                width: '30%',
-                height: '30%',
-                margin: '10px auto',
-                backgroundColor: '#333f50'
-              }}>           
+            className={classes.avatar}
+          >           
         </Avatar>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" color="primary">
           Sign in
         </Typography>
         <form className={classes.form} noValidate onSubmit={onSubmit}>
@@ -97,17 +101,7 @@ export default function SignIn(props) {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            className={classes.submit}
-            onSubmit={onSubmit}
-          >
-            
-                Sign In
-         
-          </Button>
+          
           <ButtonLogin />
           <Grid container>
             <Grid item xs>
@@ -126,6 +120,7 @@ export default function SignIn(props) {
       <Box mt={8}>
         <Copyright />
       </Box>
+      
     </Container>
   );
 }

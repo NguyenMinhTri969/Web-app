@@ -4,7 +4,7 @@ import axios from 'axios';
 const API_ROOT = "http://localhost:8000/"
 
 export const login =  user => {
-    console.log("user ne" + user);
+ 
 	return fetch((API_ROOT + "login/login/token"),{
             headers: {
                 'Accept': 'application/json',
@@ -70,6 +70,15 @@ export const getAllCountries = () => {
 
 export const getCountryDetails = (id) => {
     return axios.get(API_ROOT + "country/{country_id}?postal_code=" + id).then(res => {
+        if(res.status === 200) {
+            return res.data
+        }
+        return null;
+    })
+}
+
+export const getShopsOfCountry = (id) => {
+    return axios.get(API_ROOT + "country/{country_id}/all_shop?postal_code=" + id).then(res => {
         if(res.status === 200) {
             return res.data
         }

@@ -8,9 +8,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
-import TableFooter from '@material-ui/core/TableFooter';
 
-import Title from "../../../Title/Title"
+
+import Loading from "../../../Loading/Loading";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -36,8 +36,8 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
-  row2: {
-    maxWidth: 20,
+  column1: {
+    maxWidth: 50,
   }
 });
 
@@ -45,9 +45,8 @@ export default function CustomizedTables(props) {
   const classes = useStyles();
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [page, setPage] = React.useState(0);
-  
-  const value = [];
-  value.push(props.value)
+
+  const value = props.value;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -57,53 +56,49 @@ export default function CustomizedTables(props) {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
   return (
-    <React.Fragment>
-      <Title>
-        {props.title}
-      </Title>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>
-           
+              <StyledTableCell align="right">Channel ID</StyledTableCell>
               <StyledTableCell align="right">Postal Code</StyledTableCell>
-     
             </TableRow>
           </TableHead>
           <TableBody>
+            <Loading value={value}/>
             {(rowsPerPage > 0
-                ? value.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                : value
-              ).map((row) => (
-              <StyledTableRow  key={row.name}>
-                <StyledTableCell className={classes.row2} scope="row1">
-                      {row.name}   
+                  ? value.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  : value
+                ).map((row) => (
+              <StyledTableRow key={row.name}>
+                <StyledTableCell className={classes.column1}component="th" scope="row">
+                  {row.name}
                 </StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.postl_code}
+                <StyledTableCell align="right" component="th" scope="row">
+                  {row.channel_id}
                 </StyledTableCell>
-               
+                <StyledTableCell align="right" component="th" scope="row">
+                  {row.postal_code}
+                </StyledTableCell>
+                
               </StyledTableRow>
             ))}
           </TableBody>
         </Table>
-        <TableFooter>
-          <TableRow>
-        
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={value.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
-          </TableRow>
-        </TableFooter>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={value.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+              />
       </TableContainer>
-    </React.Fragment>
-  );
+    )
+  
+  
 }

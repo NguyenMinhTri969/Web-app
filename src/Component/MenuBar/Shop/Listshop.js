@@ -9,7 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import TablePagination from '@material-ui/core/TablePagination';
-import TableFooter from '@material-ui/core/TableFooter';
+
 
 import Loading  from "../../Loading/Loading";
 
@@ -39,7 +39,7 @@ const useStyles = makeStyles({
   table: {
     minWidth: 700,
   },
-  row2: {
+  column1: {
     maxWidth: 20,
   }
 });
@@ -113,7 +113,7 @@ export default function CustomizedTables(props) {
                 : value
               ).map((row) => (
               <StyledTableRow key={row.name}>
-                <StyledTableCell className={classes.row2} component="th" scope="row">
+                <StyledTableCell className={classes.column1} component="th" scope="row">
                     <Link href={"http://localhost:3000/shops/" + row.id + "/" +  to_slug(`${row.name}`)}>
                     {row.name}
                   </Link>
@@ -131,9 +131,7 @@ export default function CustomizedTables(props) {
             ))}
           </TableBody>
         </Table>
-        <TableFooter>
-          <TableRow>
-        
+
             <TablePagination
               rowsPerPageOptions={[5, 10, 25]}
               component="div"
@@ -143,8 +141,7 @@ export default function CustomizedTables(props) {
               onChangePage={handleChangePage}
               onChangeRowsPerPage={handleChangeRowsPerPage}
             />
-          </TableRow>
-        </TableFooter>
+
       </TableContainer>
     </ React.Fragment>
   );

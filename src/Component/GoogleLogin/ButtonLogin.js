@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { useHistory } from "react-router";
 
+
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 
 import axios from 'axios';
@@ -12,9 +13,12 @@ import axios from 'axios';
 const useStyles = makeStyles((theme) => ({
 
     submit: {
-      margin: theme.spacing(3, 0, 2),
-  
-
+      margin: theme.spacing(0, 0, 2,),
+      backgroundColor: theme.palette.primary.main,  
+      color: "white"
+    },
+    button: {
+        
     }
   }));
 
@@ -36,6 +40,9 @@ export default function Buttonlogin() {
                 history.push({
                     pathname:"/sim"
                   })
+    
+            } else {
+                console.log("login failed")
             }
         })
         }
@@ -43,7 +50,17 @@ export default function Buttonlogin() {
     return (
 
         <div className="button">
-      
+            <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                className={classes.submit}
+              
+            >
+                
+                    Sign In
+            
+            </Button>
             <GoogleLogin
                 clientId="686571586750-qqotc9b8s50mpn4n14glva58cgiaqtro.apps.googleusercontent.com"
                 render={renderProps => (
@@ -54,12 +71,14 @@ export default function Buttonlogin() {
                     variant="contained"
                     className={classes.submit}
                 >
-                    <span style = {{padding: "6px 24px 0px 0"}}>
-                        <MailOutlineIcon />
-                    </span>
                    
-               
-                 Login With Your Gmail              
+                        <MailOutlineIcon style={{ color: "white", margin: "0 10px 0 0" }} />
+                    
+                   
+                    
+                    Login With Your Gmail
+             
+                                
                 </Button>
                 )}
                 buttonText="Login"

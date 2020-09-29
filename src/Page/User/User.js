@@ -1,6 +1,6 @@
 import React from 'react';
 import { getAllUsers } from "../../RestAPI/RestAPI";
-import { checkRole } from "../../CheckRole/CheckRole";
+import { checkRole } from "../../Auth/CheckRole";
 
 import DashBoard from "../../Component/DashBoard/AppBar/AppBar";
 import Breadcrumb from "../../Component/Breadcrumb/Breadcrumb";

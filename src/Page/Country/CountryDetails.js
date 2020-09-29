@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { withRouter } from "react-router";
 
-import { checkRole } from '../../CheckRole/CheckRole'; 
+import { checkRole } from '../../Auth/CheckRole'; 
 import { getCountryDetails } from "../../RestAPI/RestAPI";
+import { getShopsOfCountry } from "../../RestAPI/RestAPI";
 
 import Dashboard from "../../Component/DashBoard/AppBar/AppBar";
-import Countrydetails from "../../Component/MenuBar/Country/Countrydetails/CountryDetails";
+import Tab from "../../Component/MenuBar/Country/Countrydetails/Tab";
 import Breadcrumbdetails from "../../Component/Breadcrumb/Breadcrumb_details";
 
 class Channel_Details extends Component {
@@ -31,9 +32,14 @@ class Channel_Details extends Component {
             
 
         getCountryDetails(id).then(res => {
-            console.log(res)
             this.setState({
-                data: res
+                information: res
+            })
+        })
+
+        getShopsOfCountry(id).then(res => {
+            this.setState({
+                shops: res
             })
         })
        
@@ -53,7 +59,9 @@ class Channel_Details extends Component {
         return (
             <Dashboard 
                 breadcrumb ={<Breadcrumbdetails {...props}/>}
-                table = {<Countrydetails value={this.state.data} title={name}/>} // data is object
+                table = {<Tab information={this.state.information}
+                                title={name}
+                                shops={this.state.shops} />} // data is object
             />
         )
     }

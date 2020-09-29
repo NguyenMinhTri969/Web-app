@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import Signin from '../../Component/Signin/Signin';
 import { withRouter } from "react-router";
 import {login} from '../../RestAPI/RestAPI';
+import LoginFailed from "../../Component/Popup/LoginFailed";
 
 
 
@@ -12,8 +13,8 @@ import {login} from '../../RestAPI/RestAPI';
 class Login extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-
+        this.state = {  
+            popup: false
         }
     }
 
@@ -34,15 +35,25 @@ class Login extends Component {
         await login(JSON.stringify(data)).then(res => {
            
             if(res === sessionStorage.getItem('token')){
-                console.log(this.state.email)
                 sessionStorage.setItem('user',this.state.email);
                 return history.push('/sim')
+            } else {
+                this.setState({
+                    popup: true
+                })
             }
+            
             }) 
         }   
+    onClose() {
+        this.setState({
+            popup: false
+        })
+    }
 
     render() {
-        
+        const Popup = this.state.popup ? <LoginFailed onClose={() => this.onClose()} open={this.state.popup}/> : ''
+
         return (
 
             <div>
@@ -50,6 +61,8 @@ class Login extends Component {
                     onChange={(event)=>this.onChange(event)} 
                     onSubmit={(event)=>this.onSubmit(event)}
                 />
+                {Popup}
+                
             </div>
          
             

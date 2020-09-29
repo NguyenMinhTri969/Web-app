@@ -8,7 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import TablePagination from '@material-ui/core/TablePagination';
-import TableFooter from '@material-ui/core/TableFooter';
+
 
 import Loading from "../../../Loading/Loading";
 
@@ -79,9 +79,6 @@ export default function CustomizedTables(props) {
             ))}
           </TableBody>
         </Table>
-        <TableFooter>
-            <TableRow>
-          
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25]}
                 component="div"
@@ -91,8 +88,6 @@ export default function CustomizedTables(props) {
                 onChangePage={handleChangePage}
                 onChangeRowsPerPage={handleChangeRowsPerPage}
               />
-            </TableRow>
-          </TableFooter>
       </TableContainer>
     )
   
