@@ -33,7 +33,7 @@ class Login extends Component {
             password: this.state.password
         }
         await login(JSON.stringify(data)).then(res => {
-           
+            console.log(res)
             if(res === sessionStorage.getItem('token')){
                 sessionStorage.setItem('user',this.state.email);
                 return history.push('/sim')

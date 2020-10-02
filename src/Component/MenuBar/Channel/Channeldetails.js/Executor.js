@@ -55,7 +55,7 @@ export default function CustomizedTables(props) {
           variant="contained" 
           color="primary"
           startIcon={<AddIcon />}
-          onClick={props.addManager}
+          onClick={props.openListManager}
         >
           Add Manager
         </Button>

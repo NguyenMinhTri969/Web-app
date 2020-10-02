@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-// chi co fetch moi response duoc status axios thi chua biet cach lay :(((
+
 const API_ROOT = "http://localhost:8000/"
 
 export const login =  user => {
  
-	return fetch((API_ROOT + "login/login/token"),{
+	return fetch((API_ROOT + "login/token"),{
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -15,7 +15,7 @@ export const login =  user => {
 		})
 		.then(async res => {
 		if(res.status === 401){
-                const notifield = "Wrong password ne";
+                const notifield = "Wrong password ";
                 return notifield;
             }
 		else if(res.status === 200){
@@ -53,6 +53,16 @@ export const getListManagerOfChannel =  (id) => {
 
 export const getShopsOfChannel = (id) => {
     return axios.get(API_ROOT + "channel/" + id + "/shops", {
+        headers:{
+            "token":sessionStorage.getItem('token'),
+        }
+    }).then(res => {
+        return res.data
+    })
+}
+
+export const getManagerNotChannel = (id) => {
+    return axios.get(API_ROOT + "channel/" + id + "/all-manager-not_channel", {
         headers:{
             "token":sessionStorage.getItem('token'),
         }

@@ -87,7 +87,7 @@ export default function ScrollableTabsButtonForce(props) {
       <TabPanel value={value} index={1}>
         <Executor 
             value={props.executor ? props.executor : []}
-            addManager={props.addManager} 
+            openListManager={props.openListManager} 
         />
       </TabPanel>
 
