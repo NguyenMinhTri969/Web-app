@@ -4,14 +4,14 @@ import axios from 'axios';
 const API_ROOT = "http://localhost:8000/"
 
 export const login =  user => {
- 
+    console.log(user)
 	return fetch((API_ROOT + "login/token"),{
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
             },
             method:'POST',
-            body:user
+            body: user
 		})
 		.then(async res => {
 		if(res.status === 401){
@@ -27,14 +27,33 @@ export const login =  user => {
             console.log('erro database');
             return 0;
             }
-		})
+        })
+
+        /* return fetch((API_ROOT + "login/token"),{
+            headers: {
+                'accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            method:'POST',
+            body: {
+                'grant_type': null,
+                'username': '1',
+                'password': '1',
+                'scope': null,
+                'client_id': null,
+                'client_secret': null
+            }
+		}).then(res => {
+            console.log(res)
+        })
+         */
 }
 
 //// ====> Channel
 export const getListChannel = () => {
     return  axios.get(API_ROOT + "channel/", {
         headers: {
-            "token": sessionStorage.getItem('token'),
+            "Authorization" : "Bearer " + sessionStorage.getItem('token')
         }
     }).then(res => {
         return res.data
@@ -43,19 +62,19 @@ export const getListChannel = () => {
 
 export const getListManagerOfChannel =  (id) => {
     return axios.get(API_ROOT + "channel/" + id + "/all-manager", {
-        headers:{
-            "token":sessionStorage.getItem('token'),
-        }
-    }).then(res => {
-        return res.data
+            headers: {    
+                "Authorization":"Bearer " + sessionStorage.getItem('token')
+            }      
+     }).then(res => {
+            return res.data
     })
 }
 
 export const getShopsOfChannel = (id) => {
     return axios.get(API_ROOT + "channel/" + id + "/shops", {
-        headers:{
-            "token":sessionStorage.getItem('token'),
-        }
+        headers: {    
+            "Authorization":"Bearer " + sessionStorage.getItem('token')
+        }      
     }).then(res => {
         return res.data
     })
@@ -63,9 +82,9 @@ export const getShopsOfChannel = (id) => {
 
 export const getManagerNotChannel = (id) => {
     return axios.get(API_ROOT + "channel/" + id + "/all-manager-not_channel", {
-        headers:{
-            "token":sessionStorage.getItem('token'),
-        }
+            headers: {    
+                "Authorization":"Bearer " + sessionStorage.getItem('token')
+            }      
     }).then(res => {
         return res.data
     })
@@ -73,13 +92,22 @@ export const getManagerNotChannel = (id) => {
 /// <=== Channel
 //// Country
 export const getAllCountries = () => {
-    return axios.post(API_ROOT + "country/").then(res => {
+    return axios.get(API_ROOT + "country/", {
+            headers: {    
+                "Authorization":"Bearer " + sessionStorage.getItem('token')
+            }      
+    }).then(res => {
         return res.data
     })
+
 }
 
 export const getCountryDetails = (id) => {
-    return axios.get(API_ROOT + "country/{country_id}?postal_code=" + id).then(res => {
+    return axios.get(API_ROOT + "country/{country_id}?postal_code=" + id, {
+        headers: {    
+            "Authorization":"Bearer " + sessionStorage.getItem('token')
+        }      
+    }).then(res => {
         if(res.status === 200) {
             return res.data
         }
@@ -88,7 +116,11 @@ export const getCountryDetails = (id) => {
 }
 
 export const getShopsOfCountry = (id) => {
-    return axios.get(API_ROOT + "country/{country_id}/all_shop?postal_code=" + id).then(res => {
+    return axios.get(API_ROOT + "country/{country_id}/all_shop?postal_code=" + id, {
+        headers: {    
+            "Authorization":"Bearer " + sessionStorage.getItem('token')
+        }      
+    }).then(res => {
         if(res.status === 200) {
             return res.data
         }
@@ -99,9 +131,10 @@ export const getShopsOfCountry = (id) => {
 /// User
 export const getAllUsers = () => {
     return axios.get(API_ROOT + "users",{
-        headers:{
-            "token":sessionStorage.getItem('token'),
-        }}).then(res => {
+        headers: {    
+            "Authorization":"Bearer " + sessionStorage.getItem('token')
+        }      
+    }).then(res => {
             if(res.status === 200){
                 
                 return res.data
@@ -112,9 +145,9 @@ export const getAllUsers = () => {
 
 export const getUserDetails = (id) => {
     return axios.get(API_ROOT + "users/" + id, {
-        headers: {
-            "token":sessionStorage.getItem('token'),
-        }
+        headers: {    
+            "Authorization":"Bearer " + sessionStorage.getItem('token')
+        }      
     }).then(res => {
         if (res.status === 200) {
             return res.data
@@ -125,9 +158,9 @@ export const getUserDetails = (id) => {
 
 export const getNumberOfShopExecutors = (id) => {
     return axios.get(API_ROOT + "shop/" + id + "/count-executors", {
-        headers: {
-            "token": sessionStorage.getItem('token')
-        }
+        headers: {    
+            "Authorization":"Bearer " + sessionStorage.getItem('token')
+        }      
     }).then(res => {
         if(res.status === 200) {
             return res.data
@@ -138,9 +171,9 @@ export const getNumberOfShopExecutors = (id) => {
 
 export const getShopsOfExecutor = (id) => {
     return axios.get(API_ROOT + "users/" + id + "/all-shop", {
-        headers: {
-            "token": sessionStorage.getItem('token')
-        }
+        headers: {    
+            "Authorization":"Bearer " + sessionStorage.getItem('token')
+        }      
     }).then(res => {
         if(res.status === 200) {
             return res.data
@@ -155,9 +188,9 @@ export const getShopsOfExecutor = (id) => {
 export const getAllShops = () => {
     return axios
                     .get(API_ROOT + 'shop/?limit=100',{
-                        headers:{
-                            "token":sessionStorage.getItem('token'),
-                        }
+                        headers: {    
+                            "Authorization":"Bearer " + sessionStorage.getItem('token')
+                        }      
                     }).then(res =>{
                         if(res.status === 200){
                             return res.data
@@ -168,9 +201,9 @@ export const getAllShops = () => {
 
 export const getShopDetails = (id) => {
     return axios.get(API_ROOT + "shop/" + id, {
-        headers: {
-            "token": sessionStorage.getItem('token')
-        }
+        headers: {    
+            "Authorization":"Bearer " + sessionStorage.getItem('token')
+        }      
     }).then(res => {
         if(res.status === 200) {
             return res.data
@@ -181,9 +214,9 @@ export const getShopDetails = (id) => {
 
 export const getExecutorsOfShop = (id) => {
     return axios.get(API_ROOT + "shop/" + id + "/all-executors", {
-        headers: {
-            "token": sessionStorage.getItem('token')
-        }
+        headers: {    
+            "Authorization":"Bearer " + sessionStorage.getItem('token')
+        }      
     }).then(res => {
         if(res.status === 200) {
             return res.data

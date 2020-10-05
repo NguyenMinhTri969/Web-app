@@ -9,9 +9,11 @@ import { blue } from '@material-ui/core/colors';
 import DialogActions from '@material-ui/core/DialogActions';    
 import Button from '@material-ui/core/Button';
 import { DialogContent } from '@material-ui/core';
-import FormControl from '@material-ui/core/FormControl';
+/* import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel'; */
+
+import { Table, TableBody, TableRow, TableCell } from '@material-ui/core';
 
 
 const useStyles = makeStyles({
@@ -21,6 +23,9 @@ const useStyles = makeStyles({
   },
   dialog: {
       minWidth: 350,
+  },
+  dialog_content: {
+      padding: 0,
   }
 });
 
@@ -30,28 +35,53 @@ export default function SimpleDialog(props) {
   // const { onClose, selectedValue } = props;  
   const value = props.value;
   const checked = props.checked;
-    console.log(checked)
+  const onClick = props.onChange
+
 
   return (
-    <Dialog  onClose={props.close} aria-labelledby="simple-dialog-title" open={props.open}>
-      <DialogTitle id="simple-dialog-title">Set manager to channel</DialogTitle>
-        <DialogContent>
-            <FormControl component="fieldset" className={classes.formControl}>
+    <Dialog  onClose={props.onClose} aria-labelledby="simple-dialog-title" open={props.open}>
+      <DialogTitle id="simple-dialog-title">Add manager to channel</DialogTitle>
+        <DialogContent className={classes.dialog_content}>
+            {/* {<FormControl component="fieldset" className={classes.formControl}>
                 <FormGroup>
                 {value.map((item) => (
                     <FormControlLabel
-                        control={<Checkbox onChange={props.onChange} value={item.id} name={item.id}/>}
+                        control={<Checkbox checked={checked.indexOf(item.id) !== -1} onChange={props.onChange} value={item.id} name={item.id}/>}
                         label={item.user_name}
                     />
                 ))}
                 
                 </FormGroup>
                 
-            </FormControl>
+            </FormControl>} */}
+            {<Table>
+              <TableBody>
+                {value.map((item) => (
+                  
+                  <TableRow 
+                    
+                    hover 
+                    onClick={onClick} 
+                    name={item.id}
+                    role="checkbox"
+                    tabIndex={-1}
+                    id={item.id}
+                    selected={checked.indexOf(item.id) !== -1}
+                  > 
+                    <TableCell align="left">
+                      <Checkbox checked={checked.indexOf(item.id) !== -1} inputProps={{ 'id': item.id }}/>
+                    </TableCell>
+                    <TableCell component="th" id={item.id} scope="row" padding="none">{item.user_name}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>}
+
         </DialogContent>
         <DialogActions>
-          <Button onClick={props.onSubmit} color="primary">
+          <Button onClick={props.Confirm} color="primary">
             <AddIcon />
+            Add
           </Button>
         </DialogActions>               
     </Dialog>

@@ -29,10 +29,16 @@ class Login extends Component {
         event.preventDefault();  // dung de ngan k cho gui form di, dung de test code
         const { history } = this.props;
         const data = {
+            grant_type: null,
             username: this.state.email,
-            password: this.state.password
+            password: this.state.password,
+            scope: null,
+            client_id: null,
+            client_secret: null
+
         }
         await login(JSON.stringify(data)).then(res => {
+            
             console.log(res)
             if(res === sessionStorage.getItem('token')){
                 sessionStorage.setItem('user',this.state.email);

@@ -28,10 +28,10 @@ export default function Buttonlogin() {
 
 
     const responseGoogle = (response) => {
-        console.log(response)
+        console.log(response.tokenId)
         const token = response.tokenId
         const url = "http://localhost:8000/login/gmail/access-token?google_token_id="+token
-        console.log(url)
+
         axios.get(url).then(res => {
             if(res.status === 200) {
                 sessionStorage.setItem('email',response.profileObj.email)

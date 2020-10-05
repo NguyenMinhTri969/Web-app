@@ -11,13 +11,15 @@ import Channeldetails from "../../Component/MenuBar/Channel/Channeldetails.js/Ta
 import Breadcrumbdetails from "../../Component/Breadcrumb/Breadcrumb_details";
 
 import AddManager from "../../Component/Popup/AddManagerToChannel/AddManagerToChannel";
+import Confirm from "../../Component/Popup/AddManagerToChannel/Confirm";
 
 class Channel_Details extends Component {
     constructor(props) {
         super(props)
         this.state = {
             dialog: false,
-            data: ["2"]
+            confirm: false,
+            data: []
         }   
     }
     async componentDidMount() {
@@ -58,31 +60,50 @@ class Channel_Details extends Component {
 
        
     }
-    openListManager() {
+    openListManagerToAdd() {
         this.setState ({
             dialog: true
         })
     }
 
     onChange(event) { 
-       
-        const currentIndex = this.state.data.indexOf(event.target.value);
+        console.log(event.target.id)
+    
+        const currentIndex = this.state.data.indexOf(event.target.id);
 
         if (currentIndex === -1) {
-        this.state.data.push(event.target.value);
+        this.state.data.push(event.target.id);
             
         } else {
         this.state.data.splice(currentIndex, 1);
         }
+
         this.setState({ [event.target.name]: event.target.checked });
-
         console.log(this.state.data)
     }
+    onClose() {
+        this.setState ({
+            dialog: false,
+            data: []
+        })
+    }
+    onCloseConfirm() {
+        this.setState({
+            confirm: false
+        })
+    }
+    onConfirm() {
+        if (this.state.data.length > 0) {
+            this.setState({
+                confirm: true
+               
+            })
+        }
+    }
+
     onSubmit() {
-        console.log(this.state.data)
+        console.log("Da gui 1 mang cac id cua manager ve backend")
     }
-
-
 
     render() {
         
@@ -99,18 +120,26 @@ class Channel_Details extends Component {
                                                 open={this.state.dialog} 
                                                 value={this.state.managernotbelong}
                                                 onChange={(event) => {this.onChange(event)}}
-                                                onSubmit={() => this.onSubmit()}
-                                                checked={this.state.data} /> : ' ';   
+                                                Confirm={() => this.onConfirm()}
+                                                checked={this.state.data} 
+                                                onClose={() => this.onClose()}/> : ' '; 
+        const confirm = this.state.confirm ? <Confirm
+                                                open={this.state.confirm} 
+                                                onSubmit={() => {this.onSubmit()}}
+                                                value={this.state.data}
+                                                name={name}
+                                                onClose={() => this.onCloseConfirm()} /> : ' ';
 
         return (
             <React.Fragment>
                 {dialog}
+                {confirm}
                 <Dashboard 
                     table={<Channeldetails 
                                 executor={this.state.executor}
                                 shops={this.state.shops}
                                 title={name}
-                                openListManager={() => this.openListManager()}
+                                openListManager={() => this.openListManagerToAdd()}
                             />}
                     breadcrumb ={<Breadcrumbdetails {...props}/>}
                 />
