@@ -10,6 +10,7 @@ import {
 
 import Login from '../Page/Login/Login';
 import Sim from "../Page/Sim/Sim";
+import SimDetails from "../Page/Sim/SimDetails";
 import Channel from "../Page/Channel/Channel";
 import ChannelDetails from "../Page/Channel/ChannelDetails";
 import Shop from "../Page/Shop/Shop";
@@ -29,9 +30,13 @@ export default function() {
                 <Route path ="/login">
                     <Login />
                 </Route>
-                <Route path ="/sim">
+                <Route path ="/sim" exact>
                     <Sim />
                 </Route>
+                <Route path ="/sim/:name" exact>
+                    <SimDetails />
+                </Route>
+
                 <Route path ="/channel" exact>
                     <Channel />
                 </Route>

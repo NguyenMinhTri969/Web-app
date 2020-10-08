@@ -227,4 +227,46 @@ export const getExecutorsOfShop = (id) => {
     })
 }
 
-/// <====
+/// <==== Shop
+export const getAllSim = () => {
+    return axios.get(API_ROOT + "sim", {
+        headers: {    
+            "Authorization":"Bearer " + sessionStorage.getItem('token')
+        }      
+    }).then(res => {
+        if(res.status === 200) {
+            return res.data
+        }
+        else {
+            return null;
+        }
+    })
+}
+export const getDetailsSim = (id) => {
+    return axios.get(API_ROOT + "sim/" + id, {
+        headers: {    
+            "Authorization":"Bearer " + sessionStorage.getItem('token')
+        }      
+    }).then(res => {
+        if(res.status === 200) {
+            return res.data
+        }
+        else {
+            return null;
+        }
+    })
+}
+export const getMessages = (id) => {
+    return axios.get(API_ROOT + "sim/" + id + "/all-messages",  {
+        headers: {    
+            "Authorization":"Bearer " + sessionStorage.getItem('token')
+        }      
+    }).then(res => {
+        if(res.status === 200) {
+            return res.data
+        }
+        else {
+            return null;
+        }
+    })
+}
