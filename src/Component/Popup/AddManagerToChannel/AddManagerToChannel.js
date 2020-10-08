@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
+import {withStyles, makeStyles } from '@material-ui/core/styles';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import AddIcon from '@material-ui/icons/Add';
@@ -16,7 +16,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel'; */
 import { Table, TableBody, TableRow, TableCell } from '@material-ui/core';
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   avatar: {
     backgroundColor: blue[100],
     color: blue[600],
@@ -26,8 +26,32 @@ const useStyles = makeStyles({
   },
   dialog_content: {
       padding: 0,
+  },
+  dialog_title:{
+    color: theme.palette.primary.main 
   }
-});
+}));
+
+/* const ColorTableRow = withStyles((theme) => ({
+  root: {
+
+   
+    '&$selected': {
+      backgroundColor: "rgba(25, 118, 210, 0.08)",
+    },
+  },
+  selected: {},
+}))((props) => <TableRow {...props} />); */
+
+const CustomCheckbox = withStyles((theme) => ({
+  root: {
+    color: theme.palette.primary.light,
+    '&$checked': {
+      color: theme.palette.primary.main,
+    },
+  },
+  checked: {},
+}))((props) => <Checkbox color="default" {...props} />);
 
 export default function SimpleDialog(props) {
   const classes = useStyles();
@@ -40,7 +64,7 @@ export default function SimpleDialog(props) {
 
   return (
     <Dialog  onClose={props.onClose} aria-labelledby="simple-dialog-title" open={props.open}>
-      <DialogTitle id="simple-dialog-title">Add manager to channel</DialogTitle>
+      <DialogTitle className={classes.dialog_title} id="dialog-title" >Add manager to channel</DialogTitle>
         <DialogContent className={classes.dialog_content}>
             {/* {<FormControl component="fieldset" className={classes.formControl}>
                 <FormGroup>
@@ -58,18 +82,17 @@ export default function SimpleDialog(props) {
               <TableBody>
                 {value.map((item) => (
                   
-                  <TableRow 
-                    
-                    hover 
+                  <TableRow
+                    hover
                     onClick={onClick} 
                     name={item.id}
                     role="checkbox"
                     tabIndex={-1}
                     id={item.id}
-                    selected={checked.indexOf(item.id) !== -1}
+                    key={item.id}
                   > 
                     <TableCell align="left">
-                      <Checkbox checked={checked.indexOf(item.id) !== -1} inputProps={{ 'id': item.id }}/>
+                      <CustomCheckbox checked={checked.indexOf(item.id) !== -1} inputProps={{ 'id': item.id }}/>
                     </TableCell>
                     <TableCell component="th" id={item.id} scope="row" padding="none">{item.user_name}</TableCell>
                   </TableRow>
@@ -79,10 +102,11 @@ export default function SimpleDialog(props) {
 
         </DialogContent>
         <DialogActions>
-          <Button onClick={props.Confirm} color="primary">
-            <AddIcon />
+    
+          <Button variant="contained" onClick={props.Confirm}  color="primary" disabled={props.disabled} startIcon={<AddIcon />}>
             Add
           </Button>
+          
         </DialogActions>               
     </Dialog>
 

@@ -16,8 +16,9 @@ import Loading from "../../Loading/Loading";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: '#3f51b5',
-    color: theme.palette.common.white,
+    fontWeight: "bold",
+    fontSize: 18,
+    
   },
   body: {
     fontSize: 14,
@@ -26,9 +27,9 @@ const StyledTableCell = withStyles((theme) => ({
 
 const StyledTableRow = withStyles((theme) => ({
   root: {
-    '&:nth-of-type(odd)': {
+    /* '&:nth-of-type(odd)': {
       backgroundColor: theme.palette.action.hover,
-    },
+    }, */
   },
 }))(TableRow);
 
@@ -64,7 +65,7 @@ export default function CustomizedTables(props) {
       </Title>
       
       <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
+        <Table className={classes.table} stickyHeader aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>Name</StyledTableCell>

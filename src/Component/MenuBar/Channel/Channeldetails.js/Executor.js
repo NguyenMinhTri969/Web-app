@@ -7,15 +7,18 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-
 import { Button } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
 import { Container } from '@material-ui/core';
+import { Checkbox } from '@material-ui/core';
+
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddIcon from '@material-ui/icons/Add';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: '#3f51b5',
-    color: theme.palette.common.white,
+    fontWeight: "bold",
+    fontSize: 18,
+   
   },
   body: {
     fontSize: 14,
@@ -23,11 +26,7 @@ const StyledTableCell = withStyles((theme) => ({
 }))(TableCell);
 
 const StyledTableRow = withStyles((theme) => ({
-  root: {
-    '&:nth-of-type(odd)': {
-      backgroundColor: theme.palette.action.hover,
-    },
-  },
+  
 }))(TableRow);
 
 
@@ -36,12 +35,16 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 700,
   },
-  button: {
+  button_menu: {
     padding: theme.spacing(0),
-    margin: theme.spacing(0, 0, 1),
+    margin: theme.spacing(0, 0, 2, 0),
     display: "flex",
     justifyContent: "flex-end",
-    flexDirection: "row"
+    flexDirection: "row" 
+  },
+  button: {
+    marginLeft: theme.spacing(2),
+    minWidth: 164,
   }
 }));
 
@@ -50,8 +53,19 @@ export default function CustomizedTables(props) {
   const value = props.value;
   return (
     <React.Fragment>
-      <Container className={classes.button}>
+      <Container className={classes.button_menu}>
         <Button
+          className={classes.button}
+          variant="contained" 
+          color="secondary"
+          startIcon={<DeleteIcon />}
+          disabled={props.disabled}
+          onClick={props.onDelete}
+        >
+          DELETE
+        </Button>
+        <Button
+          className={classes.button}
           variant="contained" 
           color="primary"
           startIcon={<AddIcon />}
@@ -61,22 +75,44 @@ export default function CustomizedTables(props) {
         </Button>
       </Container>
       <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="customized table">
+        <Table className={classes.table} stickyHeader aria-label="customized table">
           <TableHead>
             <TableRow>
-              <StyledTableCell>Name</StyledTableCell>
-              <StyledTableCell align="right">Role</StyledTableCell>
+              <StyledTableCell padding="checkbox">
+                
+              </StyledTableCell>
+              <StyledTableCell align="left">Id</StyledTableCell>
+              <StyledTableCell align="right">First Name</StyledTableCell>
+              <StyledTableCell align="right">Last Name</StyledTableCell>
+              <StyledTableCell align="right">Last Login</StyledTableCell>
             
             </TableRow>
           </TableHead>
           <TableBody>
-            {value.map((row) => (
-              <StyledTableRow key={row.id}>
-                <StyledTableCell component="th" scope="row">
-                  {row.user_name}
+            {value.map((item) => (
+              <StyledTableRow 
+                hover
+                onClick={props.onChange} 
+                name={item.id}
+                role="checkbox"
+                tabIndex={-1}
+                id={item.id}    
+                selected={props.data.indexOf(item.id) !== -1}
+              >
+                <StyledTableCell padding="checkbox" component="th" scope="row">
+                  <Checkbox checked={props.data.indexOf(item.id) !== -1}/>
                 </StyledTableCell>
-                <StyledTableCell align='right' scope="row">
-                  {row.role}
+                <StyledTableCell component="th" id={item.id} scope="row">
+                  {item.user_name}
+                </StyledTableCell>
+                <StyledTableCell component="th" id={item.id} scope="row" align='right'>
+                  {item.first_name}
+                </StyledTableCell>
+                <StyledTableCell component="th" id={item.id} scope="row" align='right'>
+                  {item.last_name}
+                </StyledTableCell>
+                <StyledTableCell component="th" id={item.id} scope="row" align='right'>
+                  {item.last_login}
                 </StyledTableCell>
               </StyledTableRow>
             ))}

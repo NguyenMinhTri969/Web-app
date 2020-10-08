@@ -19,6 +19,7 @@ class Channel_Details extends Component {
         this.state = {
             dialog: false,
             confirm: false,
+            disabled: true,
             data: []
         }   
     }
@@ -62,11 +63,13 @@ class Channel_Details extends Component {
     }
     openListManagerToAdd() {
         this.setState ({
-            dialog: true
+            dialog: true,
+            data: [],
         })
     }
 
     onChange(event) { 
+
         console.log(event.target.id)
     
         const currentIndex = this.state.data.indexOf(event.target.id);
@@ -77,13 +80,22 @@ class Channel_Details extends Component {
         } else {
         this.state.data.splice(currentIndex, 1);
         }
-
+        if (this.state.data.length > 0) {
+            this.setState({
+                disabled: false
+            })
+        } else {
+            this.setState({
+                disabled: true
+            })
+        }
         this.setState({ [event.target.name]: event.target.checked });
         console.log(this.state.data)
     }
     onClose() {
         this.setState ({
             dialog: false,
+            disabled: true,
             data: []
         })
     }
@@ -102,7 +114,10 @@ class Channel_Details extends Component {
     }
 
     onSubmit() {
-        console.log("Da gui 1 mang cac id cua manager ve backend")
+        console.log("send a array of id to backend to add")
+    }
+    onDelete() {
+        console.log("send a array of id to backend to delete")
     }
 
     render() {
@@ -122,6 +137,7 @@ class Channel_Details extends Component {
                                                 onChange={(event) => {this.onChange(event)}}
                                                 Confirm={() => this.onConfirm()}
                                                 checked={this.state.data} 
+                                                disabled={this.state.disabled}
                                                 onClose={() => this.onClose()}/> : ' '; 
         const confirm = this.state.confirm ? <Confirm
                                                 open={this.state.confirm} 
@@ -140,6 +156,10 @@ class Channel_Details extends Component {
                                 shops={this.state.shops}
                                 title={name}
                                 openListManager={() => this.openListManagerToAdd()}
+                                onChange={(event) => this.onChange(event)}
+                                data={this.state.data} 
+                                disabled={this.state.disabled}
+                                onDelete={() => this.onDelete()}
                             />}
                     breadcrumb ={<Breadcrumbdetails {...props}/>}
                 />
