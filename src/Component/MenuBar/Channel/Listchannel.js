@@ -10,9 +10,9 @@ import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 import TablePagination from '@material-ui/core/TablePagination';
 
-
 import Title from "../../Title/Title";
 import Loading from "../../Loading/Loading";
+import SearchInput from '../../Search/Search2';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -35,14 +35,20 @@ const StyledTableRow = withStyles((theme) => ({
 
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 700,
   },
   column1: {
     maxWidth: 20,
-  }
-});
+  },
+  title: {
+    display: 'flex',
+    flexDirection: 'column',
+    marginBottom: theme.spacing(1),
+    width: '100%'
+  },
+}));
 
 export default function CustomizedTables(props) {
   const classes = useStyles();
@@ -60,9 +66,13 @@ export default function CustomizedTables(props) {
   };
   return (
     <React.Fragment>
+      <div className={classes.title}>
       <Title>
         Channel
       </Title>
+      <SearchInput onChange={props.search} />
+      </div>
+    
       
       <TableContainer component={Paper}>
         <Table className={classes.table} stickyHeader aria-label="customized table">

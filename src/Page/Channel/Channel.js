@@ -5,11 +5,14 @@ import Dashboard from '../../Component/DashBoard/AppBar/AppBar';
 import Breadcrumb from '../../Component/Breadcrumb/Breadcrumb';
 import Listchannel from '../../Component/MenuBar/Channel/Listchannel';
 
+import { getMatchedList } from './SearchData';
+
 class Channel extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             role: '',
+            rootData: [],
             data: []
         }
     }
@@ -25,15 +28,29 @@ class Channel extends React.Component {
         await getListChannel().then(res => {
             console.log(res)
             this.setState({
+                rootData: res,
                 data: res
             })
         })
     }
+
+
+
+    search(event) {
+        console.log(event.target.value)
+        getMatchedList(event.target.value).then(res => {
+            this.setState({
+                data: res
+            })
+        })
+    }
+
+
     render() {
         return (
             <Dashboard 
                 breadcrumb = {<Breadcrumb title1="Channel"/>}
-                table ={<Listchannel value={this.state.data}/>}
+                table ={<Listchannel value={this.state.data} search={(event)=> this.search(event)}/>}
             />
         )
     }

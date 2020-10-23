@@ -21,3 +21,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+#firebase
+.firebaserc
+firebase.json
+.env
+.firebase/
+src/index.html
+
+#Search
+src/Component/Search/SearchField.js
