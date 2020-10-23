@@ -1,6 +1,19 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+This project is a web application to helps users to manage sim and something related to it
+
+## Prerequisites
+Before you continue, ensure you meet the following requirements:
+
+* You have to have backend server of this project. If you do not have so let find another projects ^_^.
+* You have installed npm and some package:
+    $ npm install
+    $ npm install axios
+    $ npm install react-router-dom
+* You have installed the latest version of Material-UI.
+    $ npm install @material-ui/core
+    $ npm install @material-ui/icons
+    $ npm install @material-ui/lab
 
 In the project directory, you can run:
 
